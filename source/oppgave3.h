@@ -1,17 +1,18 @@
-#ifndef oppgave2_H
-#define oppgave2_H
+#ifndef oppgave3_H
+#define oppgave3_H
 
 #include <core/x-platform/scene.h>
 
-class oppgave2 : public IScene
+class oppgave3 : public IScene
 {
 public:
-    oppgave2();
+    oppgave3();
 
     FILE* dataFile;
 
     void Init();
     void Update();
+    void UpdateAfterPhysics();
 };
 
 #endif

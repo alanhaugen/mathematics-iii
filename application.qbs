@@ -39,6 +39,8 @@ solid {
             "source/oppgave1.h",
             "source/oppgave2.cpp",
             "source/oppgave2.h",
+            "source/oppgave3.cpp",
+            "source/oppgave3.h",
         ]
 
         Depends { name: "core"  }
