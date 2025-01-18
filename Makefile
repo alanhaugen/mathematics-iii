@@ -25,6 +25,13 @@ SOURCES = \
 PROJECT_FILES = $(SOURCES) data/project.json 
 
 #############################################################################
+# Vulkan specific setup
+#############################################################################
+
+RENDERER        = VulkanRenderer
+RENDERER_HEADER = "modules/renderer/vulkan/vulkanrenderer.h"
+
+#############################################################################
 # Setup build platform rules 
 #############################################################################
 

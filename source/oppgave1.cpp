@@ -69,7 +69,7 @@ void oppgave1::Init()
             green = 0.0;
             red = 1.0;
         }
-        // 5. Beregn funksjonsverdi og skriv ut verteksdata for hvert punkt på en teksfi􏰂l.
+        // 5. Beregn funksjonsverdi og skriv ut verteksdata for hvert punkt på en teksfil.
         // På første linje i filen skal antall punkter stå.
         // Deretter følger verteksdata for hvert punkt linje for linje.
         vertices.push_back(Vertex(x, f(x), 0.0f, red, green, 0.0f));
@@ -80,7 +80,7 @@ void oppgave1::Init()
     // Write file
     dataFile = fopen("data.txt", "w+");
 
-    fprintf(dataFile, "%s%lu%s", "#", vertices.size(), "\n");
+    fprintf(dataFile, "%s%zu%s", "#", vertices.size(), "\n");
 
     for(const Vertex& v : vertices)
     {
