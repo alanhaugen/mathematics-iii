@@ -1,8 +1,13 @@
+#include <core/application.h>
 #include "oppgave3.h"
 #include "main.h"
 
 oppgave3::oppgave3()
 {
+    Camera* cam = new Camera();
+
+    components.Add(cam);
+    components.Add(new Text("oppgave 3"));
 }
 
 void oppgave3::Init()

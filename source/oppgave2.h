@@ -10,6 +10,9 @@ public:
 
     FILE* dataFile;
 
+    IDrawable *LoadFromFile(String filename);
+    IDrawable* drawable;
+
     void Init();
     void Update();
 };

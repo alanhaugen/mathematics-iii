@@ -24,6 +24,10 @@ public:
     Df d_f;
     unsigned int n;
 
+    IDrawable* drawable;
+
+    IDrawable *LoadFromFile(String filename);
+
     void Init();
     void Update();
     void UpdateAfterPhysics();

@@ -1,5 +1,5 @@
 #version 330 core
-//es
+// es
 //core
 
 // ES requires setting precision qualifier
@@ -22,6 +22,8 @@ in float o_totalwidth;
 in float o_totalheight;
 in float o_flip;
 in float o_flipVertical;
+in float o_time;
+//in vec2 o_rotation;
 
 void main ()
 {

@@ -28,6 +28,8 @@ uniform int screenWidth;
 uniform int screenHeight;
 uniform int flip;
 uniform int flipVertical;
+uniform float time;
+//uniform vec2 rotation;
 
 out float o_index;
 out float o_width;
@@ -36,6 +38,8 @@ out float o_totalwidth;
 out float o_totalheight;
 out float o_flip;
 out float o_flipVertical;
+out float o_time;
+//out vec2 o_rotation;
 
 void main()
 {
@@ -51,8 +55,12 @@ void main()
     float halfScreenWidth  = float(screenWidth)  / 2.0f;
     float halfScreenHeight = float(screenHeight) / 2.0f;
 
-    gl_Position.x += -1.0 + (float(width) / 2.0f) / halfScreenWidth  + pos.x / halfScreenWidth;
-    gl_Position.y -= -1.0 + (float(height) / 2.0f) / halfScreenHeight + pos.y / halfScreenHeight;// - 11)); // 11 is the top of a window on windows
+    gl_Position.x += -1.0 + (float(width  * scaleX) / 2.0f) / halfScreenWidth   + pos.x / (halfScreenWidth);
+    gl_Position.y -= -1.0 + (float(height * scaleY) / 2.0f) / halfScreenHeight  + pos.y / (halfScreenHeight);// - 11)); // 11 is the top of a window on windows
+    //gl_Position.y += time;
+
+    //gl_Position.x = gl_Position.x * rotation.y + gl_Position.y * rotation.x;
+    //gl_Position.y = gl_Position.y * rotation.x + gl_Position.x * rotation.y;
 
     if (vGlyph == -1)
     {
@@ -69,4 +77,6 @@ void main()
     o_totalheight = float(totalHeight);
     o_flip = float(flip);
     o_flipVertical = float(flipVertical);
+    o_time = float(time);
+    //o_rotation = rotation;
 }

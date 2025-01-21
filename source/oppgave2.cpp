@@ -1,8 +1,84 @@
+#include <core/application.h>
+#include <core/components/fpscamera.h>
 #include "oppgave2.h"
 #include "main.h"
 
 oppgave2::oppgave2()
 {
+    Camera* cam = new Camera(0.0f, 0.0f, 10.0f);
+    Text* text = new Text("oppgave 2");
+
+    components.Add(cam);
+    components.Add(text);
+    components.Add(new FPSCamera(cam));
+}
+
+IDrawable *oppgave2::LoadFromFile(String filename)
+{
+    Array<unsigned int> indices;
+    Array<String> shaders(2);
+
+    ssize_t read;
+    char * line = NULL;
+    size_t len = 0;
+
+    dataFile = fopen(filename.ToChar(), "r+");
+
+    Array<IDrawable::Vertex> vertices;
+
+    bool isFirstLine = true;
+    bool firstPoint  = true;
+    int numberOfVerteces = 0;
+
+    float x;
+    float y;
+    float z;
+
+    while ((read = getline(&line, &len, dataFile)) != -1)
+    {
+        if (isFirstLine)
+        {
+            String firstLine(line);
+            numberOfVerteces = atoi(firstLine.SubString(1, firstLine.Length()).ToChar());
+            isFirstLine = false;
+        }
+        else
+        {
+            String vertex(line);
+
+            x = atof(vertex.SubString(0, vertex.IndexOf(" ")).ToChar());
+            y = atof(vertex.SubString(vertex.IndexOf(" ") + 1, vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
+            z = atof(vertex.SubString(vertex.IndexOf(" ", vertex.IndexOf(" ") + 1),
+                                      vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ") + 1) + 1)).ToChar());
+
+            vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
+
+            if (firstPoint == true)
+            {
+                firstPoint = false;
+            }
+            else
+            {
+                vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
+            }
+        }
+    }
+
+    fclose(dataFile);
+
+    IFile *simpleVertShader = filesystem->Open(URL("data/simple.vert"), PLAIN_TEXT);
+    IFile *simpleFragShader = filesystem->Open(URL("data/simple.frag"), PLAIN_TEXT);
+
+    shaders.Insert(simpleVertShader->Read(), VERTEX_SHADER);
+    shaders.Insert(simpleFragShader->Read(), FRAGMENT_SHADER);
+
+    delete simpleVertShader;
+    delete simpleFragShader;
+
+    IDrawable* lines = renderer->CreateDrawable(vertices, indices, shaders);
+    lines->type = DRAW_LINES;
+
+    return lines;
 }
 
 void oppgave2::Init()
@@ -48,8 +124,16 @@ void oppgave2::Init()
     }
 
     fclose(dataFile);
+
+    drawable = LoadFromFile("data2.txt");
 }
 
 void oppgave2::Update()
 {
+    if (input.Pressed(input.Key.RIGHT))
+    {
+        Application::NextScene();
+    }
+
+    renderer->Draw(drawable);
 }
