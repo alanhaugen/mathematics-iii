@@ -31,6 +31,8 @@ solid {
             "data/simple.frag",
             "data/simple.vert",
             "data/solid.ico",
+            "data/triangle.frag",
+            "data/triangle.vert",
             "data/vertexanimation.frag",
             "data/vertexanimation.vert",
             "source/main.cpp",
