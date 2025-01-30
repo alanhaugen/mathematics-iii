@@ -1,5 +1,4 @@
-#version 450 core
-//es use 330 core
+#version 330 core
 
 // ES requires setting precision qualifier
 // Can be mediump or highp
