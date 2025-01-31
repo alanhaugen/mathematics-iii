@@ -84,8 +84,9 @@ IDrawable *oppgave1::LoadFromFile(String filename)
     shaders.Insert("data/simple.vert", VERTEX_SHADER);
     shaders.Insert("data/simple.frag", FRAGMENT_SHADER);
 
-    IDrawable* lines = renderer->CreateDrawable(vertices, indices, shaders);
-    lines->type = DRAW_LINES;
+    Array<ITexture*> textures = Array<ITexture*>(); // Empty array
+
+    IDrawable* lines = renderer->CreateDrawable(vertices, indices, shaders, textures, DRAW_LINES);
 
     return lines;
 }
