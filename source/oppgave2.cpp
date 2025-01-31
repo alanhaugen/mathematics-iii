@@ -72,14 +72,8 @@ IDrawable *oppgave2::LoadFromFile(String filename)
 
     fclose(dataFile);
 
-    IFile *simpleVertShader = filesystem->Open(URL("data/simple.vert"), PLAIN_TEXT);
-    IFile *simpleFragShader = filesystem->Open(URL("data/simple.frag"), PLAIN_TEXT);
-
-    shaders.Insert(simpleVertShader->Read(), VERTEX_SHADER);
-    shaders.Insert(simpleFragShader->Read(), FRAGMENT_SHADER);
-
-    delete simpleVertShader;
-    delete simpleFragShader;
+    shaders.Insert("data/simple.vert", VERTEX_SHADER);
+    shaders.Insert("data/simple.frag", FRAGMENT_SHADER);
 
     IDrawable* lines = renderer->CreateDrawable(vertices, indices, shaders);
     lines->type = DRAW_LINES;
