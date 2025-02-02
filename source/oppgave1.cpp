@@ -110,22 +110,6 @@ double df(double x)
     return (3*x*x) - (12*x) + 11;
 }
 
-std::pair<double, int> newton(double x0)
-{
-    int iter = 0;
-    double fx = f(x0);
-    double x = x0;
-
-    while (std::abs(fx) > 0.01)
-    {
-        x = x - fx/df(x);
-        fx = f(x);
-        iter++;
-    }
-
-    return std::pair<double, int>(x, iter);
-}
-
 void oppgave1::Init()
 {
     // 1. Velg en egen funksjon f(x) og en passende definisjonsmengde D_f = [a, b].

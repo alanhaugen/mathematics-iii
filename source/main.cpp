@@ -7,10 +7,9 @@ int main(int argc, char **argv)
 {
     Application application(argc, argv);
 
-    //application.AddScene(new oppgave1());
+    application.AddScene(new oppgave1());
     application.AddScene(new oppgave2());
     application.AddScene(new oppgave3());
 
     return application.Exec();
 }
-
