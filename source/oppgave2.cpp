@@ -33,7 +33,6 @@ IDrawable *oppgave2::LoadFromFile(String filename)
     float x;
     float y;
     float z;
-    float red, green;
 
     while ((read = getline(&line, &len, dataFile)) != -1)
     {
@@ -52,12 +51,7 @@ IDrawable *oppgave2::LoadFromFile(String filename)
             z = atof(vertex.SubString(vertex.IndexOf(" ", vertex.IndexOf(" ") + 1),
                                       vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ") + 1) + 1)).ToChar());
 
-            red = atof(vertex.SubString(vertex.IndexOf(" ") + 1,
-                                        vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
-            green = atof(vertex.SubString(vertex.IndexOf(" ") + 1,
-                                          vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
-
-            vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(red, green, 1.0f, 1.0f)));
+            vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)));
 
             if (firstPoint == true)
             {
@@ -65,7 +59,7 @@ IDrawable *oppgave2::LoadFromFile(String filename)
             }
             else
             {
-                vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(red, green, 1.0f, 1.0f)));
+                vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)));
             }
         }
     }
@@ -75,8 +69,9 @@ IDrawable *oppgave2::LoadFromFile(String filename)
     shaders.Insert("data/simple.vert", VERTEX_SHADER);
     shaders.Insert("data/simple.frag", FRAGMENT_SHADER);
 
-    IDrawable* lines = renderer->CreateDrawable(vertices, indices, shaders);
-    lines->type = DRAW_LINES;
+    Array<ITexture*> textures = Array<ITexture*>(); // Empty array
+
+    IDrawable* lines = renderer->CreateDrawable(vertices, indices, shaders, textures, DRAW_LINES);
 
     return lines;
 }

@@ -65,8 +65,6 @@ IDrawable *oppgave1::LoadFromFile(String filename)
 
             blue = atof(vertex.SubString(vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ") + 1) + 1),
                                         vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ") + 1) + 1) + 1)));
-//            green = atof(vertex.SubString(vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ")) + 1,
-//                                          vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
 
             if (blue > 0.5f)
             {
