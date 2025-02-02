@@ -10,7 +10,7 @@ layout(location = 2) in vec4 vNormal;	//per-vertex normals
 layout(location = 3) in vec2 vTexcoord;	//per-vertex texcoord
 
 #ifdef VULKAN
-layout(std140, binding = 0) uniform UniformBlock
+layout(set = 0, binding = 0) uniform UniformBlock
 {
   mat4 MVP;	// combined modelview projection matrix
   vec4 colour;

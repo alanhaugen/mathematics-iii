@@ -12,7 +12,7 @@ layout(location = 1) in vec2 vSmoothTexcoord;
 
 layout(binding=0) uniform sampler2D textureSampler;
 
-layout(std140, binding = 0) uniform UniformBlock
+layout(set = 0, binding = 0) uniform UniformBlock
 {
   bool EnableTexture;
 } uniformBuffer;
@@ -29,7 +29,7 @@ uniform bool uEnableTexture;
 void main()
 {
 #ifdef VULKAN
-    bool uEnableTexture = uniformBuffer.EnableTexture;
+    bool uEnableTexture = false;//uniformBuffer.EnableTexture;
 #endif
     vec4 final = vec4(1.0, 0.0, 0.0, 1.0);
     if (uEnableTexture)

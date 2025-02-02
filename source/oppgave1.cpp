@@ -41,7 +41,7 @@ IDrawable *oppgave1::LoadFromFile(String filename)
     float y;
     float z;
 
-    float red;
+    float blue;
     float green;
 
     while ((read = getline(&line, &len, dataFile)) != -1)
@@ -56,17 +56,28 @@ IDrawable *oppgave1::LoadFromFile(String filename)
         {
             String vertex(line);
 
-            x = atof(vertex.SubString(0, vertex.IndexOf(" ")).ToChar());
-            y = atof(vertex.SubString(vertex.IndexOf(" ") + 1, vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
+            x = atof(vertex.SubString(0,
+                                      vertex.IndexOf(" ")).ToChar());
+            y = atof(vertex.SubString(vertex.IndexOf(" ") + 1,
+                                      vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
             z = atof(vertex.SubString(vertex.IndexOf(" ", vertex.IndexOf(" ") + 1),
                                       vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ") + 1) + 1)).ToChar());
 
-            red = atof(vertex.SubString(vertex.IndexOf(" ") + 1,
-                                        vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
-            green = atof(vertex.SubString(vertex.IndexOf(" ") + 1,
-                                          vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
+            blue = atof(vertex.SubString(vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ") + 1) + 1),
+                                        vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ") + 1) + 1) + 1)));
+//            green = atof(vertex.SubString(vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ")) + 1,
+//                                          vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
 
-            vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(red, green, 1.0f, 1.0f)));
+            if (blue > 0.5f)
+            {
+                green = 0.0f;
+            }
+            else
+            {
+                green = 1.0f;
+            }
+
+            vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(0.0f, green, blue, 1.0f)));
 
             if (firstPoint == true)
             {
@@ -74,7 +85,7 @@ IDrawable *oppgave1::LoadFromFile(String filename)
             }
             else
             {
-                vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(red, green, 1.0f, 1.0f)));
+                vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(0.0f, green, blue, 1.0f)));
             }
         }
     }

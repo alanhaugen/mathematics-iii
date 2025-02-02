@@ -65,7 +65,7 @@ IDrawable *oppgave2::LoadFromFile(String filename)
             }
             else
             {
-                vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)));
+                vertices.Add(IDrawable::Vertex(glm::vec3(x, y, z), glm::vec4(red, green, 1.0f, 1.0f)));
             }
         }
     }
