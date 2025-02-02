@@ -10,6 +10,66 @@ oppgave3::oppgave3()
     components.Add(new Text("oppgave 3"));
 }
 
+IDrawable *oppgave3::LoadFromFile(String filename)
+{
+    Array<unsigned int> indices;
+    Array<String> shaders(2);
+
+    ssize_t read;
+    char * line = NULL;
+    size_t len = 0;
+
+    dataFile = fopen(filename.ToChar(), "r+");
+
+    Array<IDrawable::Vertex> vertices;
+
+    bool isFirstLine = true;
+    int numberOfVerteces = 0;
+
+    float x;
+    float y;
+    float z;
+
+    while ((read = getline(&line, &len, dataFile)) != -1)
+    {
+        if (isFirstLine)
+        {
+            String firstLine(line);
+            numberOfVerteces = atoi(firstLine.SubString(1, firstLine.Length()).ToChar());
+            isFirstLine = false;
+        }
+        else
+        {
+            String vertex(line);
+
+            x = atof(vertex.SubString(0, vertex.IndexOf(" ")).ToChar());
+            y = atof(vertex.SubString(vertex.IndexOf(" ") + 1, vertex.IndexOf(" ", vertex.IndexOf(" ") + 1)).ToChar());
+            z = atof(vertex.SubString(vertex.IndexOf(" ", vertex.IndexOf(" ") + 1),
+                                      vertex.IndexOf(" ", vertex.IndexOf(" ", vertex.IndexOf(" ") + 1) + 1)).ToChar());
+
+            vertices.Add(IDrawable::Vertex(glm::vec3(x * 10, y * 10, z * 10) - glm::vec3(5, 5, 0), glm::vec4(0.0f, y, z, 1.0f)));
+        }
+    }
+
+    fclose(dataFile);
+
+    shaders.Insert("data/simple.vert", VERTEX_SHADER);
+    shaders.Insert("data/simple.frag", FRAGMENT_SHADER);
+
+    IDrawable* mesh = renderer->CreateDrawable(vertices, indices, shaders);
+
+    return mesh;
+}
+
+double f(const double x, const double y)
+{
+    // f(x, y) = x^2y
+    return pow(x, 2*y);
+
+    // f(x, y) = sin πx · sin πy
+    //return sin(M_PI*x)*sin(M_PI*y);
+}
+
 void oppgave3::Init()
 {
     // Velg funksjonen av to variable som vi kaller apesadelen, f(x) = x^2y, et passende område i
@@ -23,16 +83,16 @@ void oppgave3::Init()
     {
         for (float y=ymin; y<ymax; y+=h)
         {
-            float z = sin(M_PI*x)*sin(M_PI*y);
+            float z = f(x, y);
             vertices.push_back(Vertex(x,y,z,x,y,z));
-            z = sin(M_PI*(x+h))*sin(M_PI*y);
+            z = f(x+h, y);
             vertices.push_back(Vertex(x+h,y,z,x,y,z));
-            z = sin(M_PI*x)*sin(M_PI*(y+h));
+            z = f(x, y+h);
             vertices.push_back(Vertex(x,y+h,z,x,y,z));
             vertices.push_back(Vertex(x,y+h,z,x,y,z));
-            z = sin(M_PI*(x+h))*sin(M_PI*y);
+            z = f(x+h, y);
             vertices.push_back(Vertex(x+h,y,z,x,y,z));
-            z = sin(M_PI*(x+h))*sin(M_PI*(y+h));
+            z = f(x+h, y+h);
             vertices.push_back(Vertex(x+h,y+h,z,x,y,z));
         }
     }
@@ -48,13 +108,11 @@ void oppgave3::Init()
     }
 
     fclose(dataFile);
+
+    drawable = LoadFromFile("data3.txt");
 }
 
 void oppgave3::Update()
 {
+    renderer->Draw(drawable);
 }
-
-void oppgave3::UpdateAfterPhysics()
-{
-}
-
