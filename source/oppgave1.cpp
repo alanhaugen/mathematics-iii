@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "oppgave1.h"
 #include "main.h"
+#include "core/components/cube.h"
+#include "core/components/triangle.h"
 
 // I denne oppgaven skal du lage datapunkter for grafen til en funksjon,
 // og punktene skal lagres på en tekstfil med format som forklart på forelesning (Verteksdata linjevis)

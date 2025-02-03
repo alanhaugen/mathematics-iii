@@ -63,8 +63,8 @@ IDrawable *oppgave3::LoadFromFile(String filename)
 
 double f(const double x, const double y)
 {
-    // f(x, y) = x^2y
-    return pow(x, 2*y);
+    // f(x, y) = x*x*y
+    return x * x * y;
 
     // f(x, y) = sin πx · sin πy
     //return sin(M_PI*x)*sin(M_PI*y);
