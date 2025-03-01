@@ -132,3 +132,7 @@ void oppgave2::Update()
 
     renderer->Draw(drawable);
 }
+
+void oppgave2::UpdateAfterPhysics()
+{
+}

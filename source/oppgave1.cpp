@@ -18,8 +18,8 @@ oppgave1::oppgave1() :
 
     components.Add(cam);
     components.Add(new FPSCamera(cam));
-    components.Add(new Text("oppgave 1"));
-    components.Add(new Text("f(x) = x^3 - 6x^2 + 11x - 6", 0.0f, 100.0f));
+    //components.Add(new Text("oppgave 1"));
+    //components.Add(new Text("f(x) = x^3 - 6x^2 + 11x - 6", 0.0f, 100.0f));
 }
 
 IDrawable *oppgave1::LoadFromFile(String filename)
@@ -176,4 +176,8 @@ void oppgave1::Update()
     }
 
     renderer->Draw(drawable);
+}
+
+void oppgave1::UpdateAfterPhysics()
+{
 }
