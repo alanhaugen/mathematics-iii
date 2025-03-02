@@ -7,7 +7,7 @@ oppgave3::oppgave3()
     Camera* cam = new Camera();
 
     components.Add(cam);
-    components.Add(new Text("oppgave 3"));
+    //components.Add(new Text("oppgave 3"));
 }
 
 IDrawable *oppgave3::LoadFromFile(String filename)

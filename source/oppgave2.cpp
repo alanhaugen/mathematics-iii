@@ -6,10 +6,9 @@
 oppgave2::oppgave2()
 {
     Camera* cam = new Camera(0.0f, 0.0f, 10.0f);
-    Text* text = new Text("oppgave 2");
 
     components.Add(cam);
-    components.Add(text);
+    //components.Add(new Text("oppgave 2"));
     components.Add(new FPSCamera(cam));
 }
 

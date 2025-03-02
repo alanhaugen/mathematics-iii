@@ -9,6 +9,9 @@ precision highp float; // affects all floats (vec3, vec4 etc)
 layout(location = 0) out vec4 vFragColor;	//fragment shader output
 
 layout(binding=0) uniform sampler2D textureSampler;
+
+layout(location = 0) in vec4 vSmoothColor;
+layout(location = 1) in vec2 vSmoothTexcoord;
 #else
 out vec4 vFragColor;	//fragment shader output
 
@@ -20,18 +23,16 @@ uniform bool uEnableTexture;
 
 void main()
 {
-    vec4 final = vec4(0.0, 1.0, 0.0, 1.0);
+    vec4 final = vSmoothColor;
 #ifndef VULKAN
     if (uEnableTexture)
     {
         final.x = vSmoothTexcoord.x;
         final.y = vSmoothTexcoord.y;
         final = texture(textureSampler, vSmoothTexcoord);
-    } else {
-        //set the interpolated colour as the shader output
-        final = vSmoothColor;
     }
 #endif
+
     vFragColor = final;
 }
 
